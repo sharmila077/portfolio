@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sharmila J — AI & Data Science</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B1220;
+    --panel:#121B2E;
+    --panel-2:#0F1826;
+    --line:#22304A;
+    --text:#E8ECF4;
+    --muted:#8A93A8;
+    --teal:#4FD1C5;
+    --violet:#9C8FE0;
+    --amber:#F2C572;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.12;
+    pointer-events:none;
+    z-index:0;
+  }
+  body::after{
+    content:"";
+    position:fixed;
+    top:-20%;
+    left:50%;
+    width:900px;
+    height:900px;
+    background:radial-gradient(circle, rgba(79,209,197,0.10) 0%, transparent 70%);
+    transform:translateX(-50%);
+    pointer-events:none;
+    z-index:0;
+  }
+  .wrap{max-width:1000px;margin:0 auto;padding:0 28px;position:relative;z-index:1;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:10;
+    backdrop-filter:blur(10px);
+    background:rgba(11,18,32,0.75);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px;
+  }
+  .brand{font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; letter-spacing:0.3px;}
+  .brand span{color:var(--teal);}
+  .navlinks{display:flex; gap:28px; font-size:14px; color:var(--muted);}
+  .navlinks a:hover{color:var(--teal);}
+
+  /* ---------- HERO ---------- */
+  header.hero{padding:96px 0 64px;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--teal);
+    border:1px solid rgba(79,209,197,0.35); background:rgba(79,209,197,0.06);
+    padding:6px 12px; border-radius:20px; margin-bottom:28px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--teal); box-shadow:0 0 8px var(--teal); animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(40px, 7vw, 76px);
+    line-height:1.02;
+    letter-spacing:-1.5px;
+  }
+  h1 .accent{color:var(--teal);}
+  .role{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--muted);
+    font-size:clamp(14px,2vw,17px);
+    margin-top:20px;
+    max-width:640px;
+  }
+  .role .cursor{display:inline-block; width:9px; height:16px; background:var(--teal); margin-left:4px; animation:blink 1s steps(1) infinite; vertical-align:-2px;}
+  @keyframes blink{50%{opacity:0;}}
+
+  .hero-links{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
+  .btn{
+    font-family:'JetBrains Mono',monospace; font-size:13px;
+    padding:11px 18px; border-radius:8px; border:1px solid var(--line);
+    display:flex; align-items:center; gap:8px; transition:all .2s ease;
+    background:var(--panel);
+  }
+  .btn:hover{border-color:var(--teal); color:var(--teal); transform:translateY(-2px);}
+  .btn.primary{background:var(--teal); color:#0B1220; border-color:var(--teal); font-weight:600;}
+  .btn.primary:hover{background:#3fc0b3; color:#0B1220;}
+
+  /* ---------- SECTION HEADS ---------- */
+  section{padding:64px 0;}
+  .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:36px;}
+  .sec-num{font-family:'JetBrains Mono',monospace; color:var(--violet); font-size:14px;}
+  .sec-title{font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:28px;}
+  .sec-line{flex:1; height:1px; background:var(--line);}
+
+  /* ---------- ABOUT ---------- */
+  .about-text{font-size:16px; color:#C7CEDD; max-width:680px;}
+  .about-text strong{color:var(--text);}
+
+  /* ---------- STAT ROW (signature element) ---------- */
+  .terminal-label{
+    font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted);
+    margin-bottom:14px;
+  }
+  .terminal-label .prompt{color:var(--teal);}
+  .stat-row{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:16px;
+  }
+  .stat-box{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:22px 20px;
+    position:relative;
+    overflow:hidden;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .stat-box:hover{border-color:var(--teal); transform:translateY(-3px);}
+  .stat-box::before{
+    content:"";
+    position:absolute; top:0; left:0; height:3px; width:100%;
+    background:linear-gradient(90deg, var(--teal), var(--violet));
+    opacity:0.7;
+  }
+  .stat-key{font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted); text-transform:uppercase; letter-spacing:1.2px; margin-bottom:10px;}
+  .stat-val{font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:600; color:var(--text);}
+  .stat-sub{font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--teal); margin-top:6px;}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid; grid-template-columns:1fr 1fr; gap:32px;}
+  .skill-group-title{font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--violet); text-transform:uppercase; letter-spacing:1.4px; margin-bottom:16px;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:10px;}
+  .chip{
+    font-family:'JetBrains Mono',monospace; font-size:13px;
+    padding:8px 14px; border:1px solid var(--line); border-radius:7px;
+    background:var(--panel-2); color:#D6DCEA;
+    transition:all .2s ease;
+  }
+  .chip:hover{border-color:var(--teal); color:var(--teal);}
+
+  /* ---------- TIMELINE (education history) ---------- */
+  .timeline{position:relative; padding-left:32px;}
+  .timeline::before{
+    content:""; position:absolute; left:6px; top:6px; bottom:6px; width:1px;
+    background:var(--line);
+  }
+  .tl-item{position:relative; padding-bottom:34px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-dot{
+    position:absolute; left:-32px; top:4px; width:13px; height:13px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--teal);
+  }
+  .tl-year{font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--teal); margin-bottom:4px;}
+  .tl-title{font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:17px;}
+  .tl-sub{color:var(--muted); font-size:14px; margin-top:3px;}
+
+  /* ---------- CERT / INTERNSHIP CARDS ---------- */
+  .card-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .card{
+    background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:24px;
+  }
+  .card-tag{
+    display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px;
+    color:var(--amber); border:1px solid rgba(242,197,114,0.35); background:rgba(242,197,114,0.08);
+    padding:4px 10px; border-radius:14px; margin-bottom:14px; letter-spacing:0.5px;
+  }
+  .card h3{font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600; margin-bottom:8px;}
+  .card p{color:var(--muted); font-size:14px;}
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{padding:80px 0 48px; text-align:center;}
+  footer h2{font-family:'Space Grotesk',sans-serif; font-size:clamp(28px,5vw,42px); margin-bottom:16px;}
+  footer p{color:var(--muted); max-width:460px; margin:0 auto 32px;}
+  .contact-row{display:flex; justify-content:center; gap:14px; flex-wrap:wrap;}
+  .footnote{margin-top:56px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#5A6478;}
+
+  @media(max-width:720px){
+    .stat-row{grid-template-columns:1fr;}
+    .skills-grid{grid-template-columns:1fr;}
+    .card-grid{grid-template-columns:1fr;}
+    .navlinks{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">SHARMILA<span>.J</span></div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#work">Certifications</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span> OPEN TO INTERNSHIPS</div>
+    <h1>Sharmila J</h1>
+    <p class="role">student.branch = "B.Tech, Artificial Intelligence &amp; Data Science"<span class="cursor"></span></p>
+    <div class="hero-links">
+      <a class="btn primary" href="mailto:sharmila112005@gmail.com">✉ Email me</a>
+      <a class="btn" href="https://github.com/sharmila077" target="_blank">↗ GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/sharmila-j-0639b5332" target="_blank">↗ LinkedIn</a>
+      <a class="btn" href="tel:7708930867">📱 7708930867</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-title">About</span><div class="sec-line"></div></div>
+    <p class="about-text">
+      I'm currently pursuing a <strong>B.Tech in Artificial Intelligence &amp; Data Science</strong> at Anna University.
+      My interests sit at the intersection of <strong>Python-based data analysis</strong> and <strong>video editing</strong> —
+      I enjoy turning raw information into something structured, and structured information into something visual.
+      I'm comfortable working across the data stack, from querying with SQL to writing Python scripts to presenting
+      findings clearly.
+    </p>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-title">Education</span><div class="sec-line"></div></div>
+
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-key">CGPA</div>
+        <div class="stat-val">7.8</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-key">Graduating</div>
+        <div class="stat-val">2027</div>
+        <div class="stat-sub">Anna University · AI &amp; DS</div>
+      </div>
+    </div>
+
+    <div style="height:52px;"></div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2020</div>
+        <div class="tl-title">SSLC</div>
+        <div class="tl-sub">Sakunthalammal Matriculation School, Thurapallam · 76%</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2022</div>
+        <div class="tl-title">Higher Secondary Certificate (HSC)</div>
+        <div class="tl-sub">Sunnambukulam Higher Secondary School · 70%</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2023 — 2027</div>
+        <div class="tl-title">B.Tech, Artificial Intelligence &amp; Data Science</div>
+        <div class="tl-sub">Anna University · CGPA 7.8</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-title">Skills</span><div class="sec-line"></div></div>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-group-title">Technical</div>
+        <div class="chip-row">
+          <span class="chip">Python</span>
+          <span class="chip">SQL</span>
+          <span class="chip">Java</span>
+          <span class="chip">VS Code</span>
+          <span class="chip">Excel</span>
+          <span class="chip">Word</span>
+          <span class="chip">PowerPoint</span>
+          <span class="chip">Video Editing</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-title">Personality</div>
+        <div class="chip-row">
+          <span class="chip">Teamwork</span>
+          <span class="chip">Communication</span>
+          <span class="chip">Editing Video</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-title">Certifications &amp; Internships</span><div class="sec-line"></div></div>
+    <div class="card-grid">
+      <div class="card">
+        <span class="card-tag">CERTIFICATION</span>
+        <h3>Data Analytics Certification</h3>
+        <p>30-day masterclass programme completed with Novitech R&amp;D Pvt. Ltd. (2024), covering the fundamentals of data analytics.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">INTERNSHIP</span>
+        <h3>Web Analysis — 1 Month</h3>
+        <p>Completed a one-month internship focused on web analysis, delivering a project as part of the programme.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">INTERNSHIP</span>
+        <h3>IoT Internship — 15 Days</h3>
+        <p>Completed a 15-day online IoT internship with Barola Technologies, awarded an official internship completion certificate.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">WORKSHOP</span>
+        <h3>AI Powered Full Stack Development</h3>
+        <p>Awarded a Participation Completion Certificate from GUVI in recognition of participation in their workshop on AI Powered Full Stack Development.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>I hope to get the opportunity, and I will give my best.</h2>
+    <div class="contact-row">
+      <a class="btn primary" href="mailto:sharmila112005@gmail.com">✉ sharmila112005@gmail.com</a>
+      <a class="btn" href="tel:7708930867">📱 7708930867</a>
+      <a class="btn" href="https://github.com/sharmila077" target="_blank">GitHub ↗</a>
+      <a class="btn" href="https://www.linkedin.com/in/sharmila-j-0639b5332" target="_blank">LinkedIn ↗</a>
+    </div>
+    <div class="footnote">© 2026 Sharmila J · Built with intent.</div>
+  </div>
+</footer>
+
+</body>
+</html>
